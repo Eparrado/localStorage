@@ -42,15 +42,29 @@ function toggleDone(event) {
     populateList(items, itemsList); //Actualizo visualmente la lista
 }
 
-function checkAllInputs() { }
-function uncheckAllInputs() { }
+function checkAllInputs() {
+    items.forEach(item => {
+        item.done = true;
+    });
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
+}
+
+
+function uncheckAllInputs() {
+    items.forEach(item => {
+        item.done = false;
+    });
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
+}
 
 function deleteData() {
     localStorage.clear(); //me borra el localStorage
-    while (items.length > 0) {
+    while (items.length > 0) { //borro el array
         items.pop();
     }
-    populateList(items, itemsList);
+    populateList(items, itemsList); //repinto con el array vacío
 }
 
 populateList(items, itemsList);
