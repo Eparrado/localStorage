@@ -1,5 +1,8 @@
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
+const checkAllButton = document.querySelector('.checkAll');
+const uncheckAllButton = document.querySelector('.uncheckAll');
+const DeleteDataButton = document.querySelector('.deleteSelected');
 const items = JSON.parse(localStorage.getItem('items')) || [];
 
 
@@ -39,7 +42,21 @@ function toggleDone(event) {
     populateList(items, itemsList); //Actualizo visualmente la lista
 }
 
+function checkAllInputs() { }
+function uncheckAllInputs() { }
+
+function deleteData() {
+    localStorage.clear(); //me borra el localStorage
+    while (items.length > 0) {
+        items.pop();
+    }
+    populateList(items, itemsList);
+}
+
 populateList(items, itemsList);
 
 addItems.addEventListener('submit', addItem);
 itemsList.addEventListener('click', toggleDone);
+checkAllButton.addEventListener('click', checkAllInputs);
+uncheckAllButton.addEventListener('click', uncheckAllInputs);
+DeleteDataButton.addEventListener('click', deleteData);
