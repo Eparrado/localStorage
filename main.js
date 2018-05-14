@@ -5,6 +5,13 @@ const uncheckAllButton = document.querySelector('.uncheckAll');
 const DeleteDataButton = document.querySelector('.deleteSelected');
 const items = JSON.parse(localStorage.getItem('items')) || [];
 
+function updateLocalStorage() {
+    localStorage.setItem('items', JSON.stringify(items));
+}
+function deleteDataFromLocalStorage() {
+    localStorage.removeItem('items', JSON.stringify(items));
+}
+
 
 function addItem(event) {
     event.preventDefault();
@@ -17,7 +24,7 @@ function addItem(event) {
 
     items.push(item);
     populateList(items, itemsList);
-    localStorage.setItem('items', JSON.stringify(items));
+    updateLocalStorage();
     this.reset();
 }
 
@@ -38,7 +45,7 @@ function toggleDone(event) {
     const itemSelected = event.target;
     const indexOfItemSelected = itemSelected.dataset.index;
     items[indexOfItemSelected].done = !items[indexOfItemSelected].done; //cambio el valor del checked 
-    localStorage.setItem('items', JSON.stringify(items)); //lo vuelve a almacenar en el localStorage
+    updateLocalStorage();
     populateList(items, itemsList); //Actualizo visualmente la lista
 }
 
@@ -46,7 +53,7 @@ function checkAllInputs() {
     items.forEach(item => {
         item.done = true;
     });
-    localStorage.setItem('items', JSON.stringify(items));
+    updateLocalStorage();
     populateList(items, itemsList);
 }
 
@@ -55,12 +62,12 @@ function uncheckAllInputs() {
     items.forEach(item => {
         item.done = false;
     });
-    localStorage.setItem('items', JSON.stringify(items));
+    updateLocalStorage();
     populateList(items, itemsList);
 }
 
 function deleteData() {
-    localStorage.clear(); //me borra el localStorage
+    deleteDataFromLocalStorage(); //me borra el localStorage
     while (items.length > 0) { //borro el array
         items.pop();
     }
